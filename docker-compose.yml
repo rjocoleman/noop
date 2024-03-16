@@ -1,0 +1,7 @@
+services:
+  noop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - SILENCE_OUTPUT=true

@@ -1,0 +1,9 @@
+version: "3.8"
+
+services:
+  app:
+    image: alpine:latest
+    command: "true"
+
+  datadog-agent:
+    image: datadog/agent:latest

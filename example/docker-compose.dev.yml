@@ -1,0 +1,5 @@
+version: "3.8"
+
+services:
+  datadog-agent: !override
+    image: ghcr.io/rjocoleman/noop:latest
