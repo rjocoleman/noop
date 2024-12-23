@@ -5,3 +5,4 @@ services:
       dockerfile: Dockerfile
     environment:
       - SILENCE_OUTPUT=true
+      - NOOP_INFINITY=false

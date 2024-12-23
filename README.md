@@ -99,6 +99,29 @@ docker-compose up
 
 To run the noop image without any message printed to stdout (i.e. suppress `noop image used, exiting. (see https://github.com/rjocoleman/noop for more info)`) you can set the environment variable `SILENCE_OUTPUT=true`. Use this wisely as it can be confusing why services aren't running.
 
+## Service Dependencies and Health Checks
+
+For services that need to wait for a noop service with health checks (e.g., using `depends_on: condition: service_healthy`), the container needs to stay alive. Set `NOOP_INFINITY=true` to make the container stay running indefinitely (similar to `sleep infinity`):
+
+```yaml
+services:
+  noop-service:
+    image: rjocoleman/noop:latest
+    environment:
+      - NOOP_INFINITY=true
+      - SILENCE_OUTPUT=true
+    healthcheck:
+      test: ["/noop"]
+      interval: 1s
+      timeout: 1s
+      retries: 1
+      start_period: 0s
+
+  dependent-service:
+    depends_on:
+      noop-service:
+        condition: service_healthy
+
 ## Building From Source
 
 To build the `noop` image from source, clone the repository and use the provided Dockerfile.
